@@ -1,0 +1,12 @@
+@nsobid-FB08F1D20FD1204FE7070672777F869B
+# MHGU 1.4.0 / 0100770008DD8000 - Map Reveal v0.1 (experimental)
+# Adapted from community Mark Boss / Automatically Display Map codes.
+# https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes
+# Addresses are main-relative. NSO file header adds 0x100.
+@flag print_values
+@flag offset_shift 0x100
+
+@enabled
+0061CC94 0100A0E3
+0061BAD0 0000A0E1
+@stop
