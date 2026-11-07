@@ -1,4 +1,4 @@
-# MHGU Hunter’s Eye · 猎人之眼
+# MHGU Hunter’s Eye
 
 Startup patch for Monster Hunter Generations Ultimate 1.4.0, intended to keep large monsters marked on the map and automatically display the map in Yuzu.
 
@@ -56,7 +56,7 @@ Run the static consistency check in PowerShell:
 
 ## 中文说明
 
-本项目名为「猎人之眼」，目标是在 Yuzu 中常驻标记大型怪物位置，并自动显示地图。采用原版标记，不提供怪物头像。
+本项目目标是在 Yuzu 中常驻标记大型怪物位置，并自动显示地图。采用原版标记，不提供怪物头像。
 
 **当前发行版为 v0.1.0，维护者已于 2026-11-07 确认游戏内实测可用。** 具体模拟器版本及完整测试矩阵尚未记录，其他配置仍未验证。 本项目将社区已有金手指修改转换成启动时加载的 ExeFS 补丁，并非重新开发了整套怪物追踪系统。
 
