@@ -15,4 +15,4 @@ foreach ($entry in $entries) {
     $expected.Remove($address)
 }
 if ($expected.Count -ne 0) { throw 'Missing patch address' }
-Write-Output 'Static checks passed. In-game behavior is NOT verified.'
+Write-Output 'Static checks passed. This check validates patch structure, not gameplay behavior.'

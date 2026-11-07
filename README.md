@@ -1,8 +1,8 @@
 # MHGU Hunter’s Eye · 猎人之眼
 
-Experimental startup patch for Monster Hunter Generations Ultimate 1.4.0, intended to keep large monsters marked on the map and automatically display the map in Yuzu.
+Startup patch for Monster Hunter Generations Ultimate 1.4.0, intended to keep large monsters marked on the map and automatically display the map in Yuzu.
 
-**Status: v0.1.0-alpha — NOT verified in-game.** Patch structure, byte order, and intended offsets have been checked. Successful loading and gameplay behavior remain unverified. This is a conversion of existing community cheat instructions to an ExeFS patch, not newly reverse-engineered game logic. It does not add species-specific monster portraits.
+**Status: v0.1.0 — confirmed working in-game by the maintainer (2026-11-07).** Static checks validate patch structure, byte order, and intended offsets. The exact emulator version and detailed test matrix have not been recorded; other configurations remain untested. This is a conversion of existing community cheat instructions to an ExeFS patch, not newly reverse-engineered game logic. It does not add species-specific monster portraits.
 
 ## Compatibility
 
@@ -17,7 +17,7 @@ Experimental startup patch for Monster Hunter Generations Ultimate 1.4.0, intend
 
 1. Stop the game.
 2. In Yuzu, right-click the game and open its mod data location.
-3. Copy `mod/MHGU-MapReveal-ExeFS` into that directory.
+3. Download and extract `MHGU-Hunters-Eye-v0.1.0.zip` from the [latest release](https://github.com/noxargenta/mhgu-hunters-eye/releases/latest), then copy its `MHGU-MapReveal-ExeFS` folder into that directory (from source, use `mod/MHGU-MapReveal-ExeFS`).
 4. Enable `MHGU-MapReveal-ExeFS` in game Properties.
 5. Disable the old Mark Boss / Mark position / Auto Display Map cheats and MapAssist for an isolated test.
 6. Restart the game and enter a normal large-monster hunting quest.
@@ -46,7 +46,7 @@ Yuzu logs should mention `MapReveal-1.4.0.pchtxt` and writes at file offsets `0x
 | `0x0061CC94` | `E3A00001` (`MOV R0, #1`) | `01 00 A0 E3` | Mark Boss |
 | `0x0061BAD0` | `E1A00000` (`MOV R0, R0`) | `00 00 A0 E1` | Automatically Display Map |
 
-`offset_shift 0x100` accounts for the NSO header, following the IPSwitch layout used by the existing resolution patch. Applying changes before execution may avoid limitations of runtime cheat writes; this hypothesis is not yet confirmed. Original instruction bytes have not been independently checked against a dumped game executable.
+`offset_shift 0x100` accounts for the NSO header, following the IPSwitch layout used by the existing resolution patch. The maintainer reports that this startup patch works in-game; the reason for any difference from runtime cheat writes has not been independently established. Original instruction bytes have not been independently checked against a dumped game executable.
 
 Run the static consistency check in PowerShell:
 
@@ -58,11 +58,23 @@ Run the static consistency check in PowerShell:
 
 本项目名为「猎人之眼」，目标是在 Yuzu 中常驻标记大型怪物位置，并自动显示地图。采用原版标记，不提供怪物头像。
 
-**目前是实验版，尚未完成游戏内验证，不能保证生效。** 本项目将社区已有金手指修改转换成启动时加载的 ExeFS 补丁，并非重新开发了整套怪物追踪系统。
+**当前发行版为 v0.1.0，维护者已于 2026-11-07 确认游戏内实测可用。** 具体模拟器版本及完整测试矩阵尚未记录，其他配置仍未验证。 本项目将社区已有金手指修改转换成启动时加载的 ExeFS 补丁，并非重新开发了整套怪物追踪系统。
 
-安装：停止游戏 → 右键游戏打开 MOD 目录 → 放入 `mod` 下的 `MHGU-MapReveal-ExeFS` 文件夹 → 属性中启用 → 暂时停用同功能金手指及 MapAssist → 重启进入狩猎任务。
+安装：停止游戏 → 右键游戏打开 MOD 目录 → 从 [最新 Release](https://github.com/noxargenta/mhgu-hunters-eye/releases/latest) 下载并解压 ZIP，放入其中的 `MHGU-MapReveal-ExeFS` 文件夹（源码中位于 `mod` 下） → 属性中启用 → 暂时停用同功能金手指及 MapAssist → 重启进入狩猎任务。
 
 测试时不使用染色球或千里眼药，检查怪物是否出现于地图，以及换区后标记是否更新。无效时请在 Issues 提供模拟器版本、游戏版本和相关加载日志。卸载只需移除本 MOD 文件夹并重启。
+
+## Build a release
+
+This is a text-based ExeFS patch; no binary compilation or game files are required. Run in PowerShell:
+
+```powershell
+./Build-Release.ps1
+```
+
+The script runs static validation and writes `dist/MHGU-Hunters-Eye-v0.1.0.zip` and `dist/SHA256SUMS.txt`. The ZIP includes the installable mod folder, README, changelog, and license. Compare the downloaded ZIP with `SHA256SUMS.txt` using `Get-FileHash -Algorithm SHA256`.
+
+See [CHANGELOG.md](CHANGELOG.md) for release history. Static validation does not replace gameplay testing.
 
 ## Credits and license
 
